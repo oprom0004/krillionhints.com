@@ -29,27 +29,28 @@ const { promptItem } = Astro.props;
     </span>
   </div>
 
-  <!-- Common Floaters Warning -->
-  <div class="p-3 bg-red-950/20 border border-red-900/40 rounded-xl space-y-1.5 text-xs">
-    <span class="font-bold text-red-400 flex items-center gap-1.5">
+  <!-- Common Floaters Warning (Upgraded High-Contrast Theme) -->
+  <div class="p-3 bg-ocean-dark/90 border border-trench-coral/30 rounded-xl space-y-1 text-xs">
+    <span class="font-bold text-trench-coral flex items-center gap-1.5 font-mono-code">
       <span>🫧</span> Floaters to Avoid (Too Common · Low Score):
     </span>
-    <p class="text-krill-muted font-mono-code">
+    <p class="text-krill-text/80 font-mono-code leading-relaxed pl-5">
       {promptItem.commonAnswers.join(', ')}
     </p>
   </div>
 
-  <!-- Too Clever Trap -->
+  <!-- Too Clever Trap (High-Contrast Amber Glow) -->
   {promptItem.tooCleverTraps.length > 0 && (
-    <div class="p-3 bg-amber-950/20 border border-amber-900/40 rounded-xl space-y-1.5 text-xs">
-      <span class="font-bold text-amber-400 flex items-center gap-1.5">
-        <span>⚠️</span> "Too Clever" Traps (Everyone thinks of these):
+    <div class="p-3 bg-ocean-dark/90 border border-trench-gold/30 rounded-xl space-y-1 text-xs">
+      <span class="font-bold text-trench-gold flex items-center gap-1.5 font-mono-code">
+        <span>⚠️</span> "Too Clever" Traps (Avoid Crowd Picks):
       </span>
-      <p class="text-krill-muted font-mono-code">
+      <p class="text-krill-text/80 font-mono-code leading-relaxed pl-5">
         {promptItem.tooCleverTraps.join(', ')}
       </p>
     </div>
   )}
+
 
   <!-- Deep Trench 7000M Answers (Progressive Reveal) -->
   <details class="group border border-trench-cyan/30 rounded-xl bg-ocean-dark overflow-hidden">

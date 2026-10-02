@@ -244,9 +244,51 @@ export function getAllDives(): DailyKrillionDive[] {
 }
 
 export function getTodayDive(): DailyKrillionDive {
-  return buildDive(SEED_DIVES[0]);
+  const now = new Date();
+  const yyyy = now.getUTCFullYear();
+  const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const dd = String(now.getUTCDate()).padStart(2, '0');
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+
+  // Check if today matches explicit seed
+  const found = SEED_DIVES.find(d => d.date === todayStr);
+  if (found) {
+    return buildDive(found);
+  }
+
+  // Calculate dynamic dive number from epoch (2025-05-14 = #1)
+  const epoch = new Date('2025-05-14T00:00:00Z').getTime();
+  const todayTime = new Date(`${todayStr}T00:00:00Z`).getTime();
+  const daysDiff = Math.floor((todayTime - epoch) / (1000 * 60 * 60 * 24)) + 1;
+  const diveNum = Math.max(1, daysDiff);
+
+  // Pick prompt pack cyclically
+  const template = SEED_DIVES[diveNum % SEED_DIVES.length];
+
+  return buildDive({
+    number: diveNum,
+    date: todayStr,
+    theme: template.theme,
+    prompts: template.prompts,
+  });
 }
 
 export function getYesterdayDive(): DailyKrillionDive {
-  return buildDive(SEED_DIVES[1]);
+  const today = getTodayDive();
+  const prevDate = new Date(`${today.dateStr}T00:00:00Z`);
+  prevDate.setUTCDate(prevDate.getUTCDate() - 1);
+
+  const yyyy = prevDate.getUTCFullYear();
+  const mm = String(prevDate.getUTCMonth() + 1).padStart(2, '0');
+  const dd = String(prevDate.getUTCDate()).padStart(2, '0');
+  const yesterdayStr = `${yyyy}-${mm}-${dd}`;
+
+  const template = SEED_DIVES[(today.number - 1) % SEED_DIVES.length];
+
+  return buildDive({
+    number: today.number - 1,
+    date: yesterdayStr,
+    theme: template.theme,
+    prompts: template.prompts,
+  });
 }

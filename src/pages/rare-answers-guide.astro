@@ -61,6 +61,12 @@ const CATEGORIES = [
 
 <Layout title={pageTitle} description={pageDescription} schema={schemas}>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono-code text-krill-muted" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-trench-cyan">Home</a>
+      <span>/</span>
+      <span class="text-white">Rare Words Vault</span>
+    </nav>
     <div class="text-center space-y-3">
       <div class="inline-flex items-center gap-2">
         <span class="px-3 py-1 bg-trench-neon/15 text-trench-neon border border-trench-neon/30 text-xs font-black rounded-full font-mono-code uppercase tracking-wider">

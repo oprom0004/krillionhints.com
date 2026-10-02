@@ -24,6 +24,12 @@ const schemas = [
 
 <Layout title={pageTitle} description={pageDescription} schema={schemas}>
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <nav class="flex items-center space-x-2 text-xs text-krill-muted" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-trench-cyan transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-white">How to Play</span>
+    </nav>
+
     <div class="text-center space-y-3">
       <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
         How to Play <span class="text-trench-cyan">Krillion</span>
