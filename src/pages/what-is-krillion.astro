@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'What is Krillion? The Daily Reverse-Trivia Phenomenon Explained';
+const pageDescription = 'What is Krillion? Discover the daily dive trivia game at krillion.io where obscure knowledge sinks you deeper. Learn its origins, viral popularity, and rules.';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'What is Krillion? The Daily Reverse-Trivia Game Explained',
+    description: 'An in-depth explanation of Krillion, its unique reverse-popularity scoring system, and how to play.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://krillionhints.com/' },
+      { '@type': 'ListItem', position: 2, name: 'What is Krillion', item: 'https://krillionhints.com/what-is-krillion/' },
+    ],
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <div class="text-center space-y-3">
+      <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        What is <span class="text-trench-cyan">Krillion</span>?
+      </h1>
+      <p class="text-sm sm:text-base text-krill-muted">
+        The viral daily reverse-trivia game rewarding the rarest knowledge on Earth.
+      </p>
+    </div>
+
+    <article class="bg-ocean-card border border-ocean-border rounded-2xl p-6 sm:p-10 space-y-8 text-sm sm:text-base leading-relaxed text-krill-text">
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white border-b border-ocean-border pb-2">
+          🌊 Overview of Krillion
+        </h2>
+        <p class="text-krill-muted">
+          <strong>Krillion</strong> (hosted at <a href="https://krillion.io" target="_blank" rel="noopener" class="text-trench-cyan underline font-bold">krillion.io</a>) is a fast-paced daily trivia game based on "The Daily Dive". 
+        </p>
+        <p class="text-krill-muted">
+          Every day at 00:00 UTC, players around the globe receive the same <strong>7 category prompts</strong>. You get exactly <strong>25 seconds</strong> to type one valid response per prompt. The twist? Unlike typical quiz games where any correct answer gets full credit, Krillion judges your response against the collective wisdom of thousands of other players.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white border-b border-ocean-border pb-2">
+          📊 The Reverse-Trivia Concept
+        </h2>
+        <p class="text-krill-muted">
+          If you give an obvious answer (like naming "France" for a European country), your answer <em>floats</em> near the surface and scores practically zero meters. 
+        </p>
+        <p class="text-krill-muted">
+          If you name a hyper-specific, obscure entry (like "Andorra" or "San Marino"), you sink hundreds or thousands of meters down into the abyssal trench. Reaching the ocean floor at <strong>7,000 meters</strong> is the ultimate badge of trivia supremacy.
+        </p>
+      </section>
+    </article>
+  </div>
+</Layout>

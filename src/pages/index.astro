@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getTodayDive, getYesterdayDive, getAllDives } from '../lib/krillion';
+import PromptCard from '../components/PromptCard.astro';
+import GEOQuickAnswer from '../components/GEOQuickAnswer.astro';
+import FAQSection from '../components/FAQSection.astro';
+
+const today = getTodayDive();
+const yesterday = getYesterdayDive();
+const allDives = getAllDives();
+
+const pageTitle = `Krillion Hints Today (#${today.number}, ${today.displayDate}): Daily Dive Answers & Clues`;
+const pageDescription = `Krillion hints and rare answers for #${today.number} (${today.displayDate}). Spoiler-free clues, 7,000-meter deep sinkers, and Too-Clever trap warnings for all 7 daily prompts.`;
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `What are the hints for today's Krillion (#${today.number})?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Today's Krillion (#${today.number}, ${today.displayDate}) features 7 prompts in theme '${today.theme}'. Check our progressive deep dive sinkers to reach 7,000 meters.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How does scoring work in Krillion?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Krillion awards depth points based on answer rarity. Common answers float (low depth), while obscure, correct answers sink you deeper up to 7,000 meters.',
+        },
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://krillionhints.com/',
+      },
+    ],
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10">
+    <!-- Hero Section -->
+    <section class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2">
+        <span class="px-3 py-1 bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30 text-xs font-black rounded-full font-mono-code uppercase tracking-wider">
+          Daily Dive #{today.number} · {today.dayOfWeek}, {today.displayDate}
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Krillion <span class="text-trench-cyan">Hints Today</span>: Daily Dive Clues
+      </h1>
+
+      <p class="text-sm sm:text-base text-krill-muted max-w-xl mx-auto leading-relaxed">
+        Don't let your answers float at the surface. Sink to <strong class="text-trench-gold font-pixel text-lg">7,000 METERS</strong> with our spoiler-free progressive clues and top rare sinkers.
+      </p>
+    </section>
+
+    <!-- GEO / AI Quick Answer Key -->
+    <GEOQuickAnswer dive={today} />
+
+    <!-- 7 Daily Prompts Grid -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+          <span>🎯</span> All 7 Daily Prompts & Deep Sinkers
+        </h2>
+        <span class="text-xs font-mono-code text-krill-muted">
+          Updated Daily at 00:00 UTC
+        </span>
+      </div>
+
+      <div class="space-y-4">
+        {today.prompts.map((prompt) => (
+          <PromptCard promptItem={prompt} />
+        ))}
+      </div>
+    </section>
+
+    <!-- Strategy Callout -->
+    <section class="p-6 bg-gradient-to-r from-ocean-card to-ocean-dark border-2 border-trench-cyan/30 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-lg font-black text-white flex items-center gap-2">
+          <span>🌊</span> Want to score 7,000m on every prompt?
+        </h3>
+        <p class="text-xs sm:text-sm text-krill-muted mt-1 leading-relaxed">
+          Learn how to evade the "Too Clever" crowd penalty and pick truly obscure valid answers.
+        </p>
+      </div>
+      <a
+        href="/how-to-dive-7000m/"
+        class="px-5 py-2.5 bg-trench-cyan hover:bg-trench-neon text-ocean-darkest font-black text-xs font-mono-code rounded-xl shadow-cyan-glow transition-all whitespace-nowrap"
+      >
+        Read 7000m Strategy Guide →
+      </a>
+    </section>
+
+    <!-- Recent Dives Archive Grid -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <span>📅</span> Recent Daily Dives
+        </h2>
+        <a href="/archive/" class="text-xs font-bold text-trench-cyan hover:underline">
+          View All Archive →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {allDives.map((d) => (
+          <a
+            href={`/prompts/${d.slug}/`}
+            class="p-4 bg-ocean-card hover:bg-ocean-hover border border-ocean-border hover:border-trench-cyan/40 rounded-xl transition-all group block"
+          >
+            <div class="flex items-center justify-between text-xs text-krill-muted mb-1.5 font-mono-code">
+              <span>#{d.number}</span>
+              <span>{d.displayDate}</span>
+            </div>
+            <h4 class="font-bold text-white text-base group-hover:text-trench-cyan transition-colors">
+              Theme: {d.theme}
+            </h4>
+            <p class="text-xs text-krill-muted mt-1">
+              7 Prompts · Max Depth 7,000m
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <FAQSection dive={today} />
+  </div>
+</Layout>
+
+<script is:inline>
+  document.querySelectorAll('.copy-prompt-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const ans = btn.getAttribute('data-answer');
+      navigator.clipboard.writeText(ans).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('text-trench-neon');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.remove('text-trench-neon');
+        }, 1500);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllDives, type DailyKrillionDive } from '../../lib/krillion';
+import PromptCard from '../../components/PromptCard.astro';
+import GEOQuickAnswer from '../../components/GEOQuickAnswer.astro';
+import FAQSection from '../../components/FAQSection.astro';
+
+export async function getStaticPaths() {
+  const dives = getAllDives();
+  return dives.map((dive) => ({
+    params: { slug: dive.slug },
+    props: { dive },
+  }));
+}
+
+interface Props {
+  dive: DailyKrillionDive;
+}
+
+const { dive } = Astro.props;
+
+// Crawl budget optimization: Index recent 45 days only
+const diveDate = new Date(dive.dateStr + 'T00:00:00Z').getTime();
+const now = new Date().getTime();
+const daysOld = Math.floor((now - diveDate) / (1000 * 60 * 60 * 24));
+const isTooOld = daysOld > 45;
+
+const pageTitle = `Krillion #${dive.number} Hints (${dive.displayDate}): Daily Dive Answers`;
+const pageDescription = `Hints and rare answers for Krillion #${dive.number} (${dive.displayDate}). All 7 daily prompts with optimal 7,000m depth sinkers.`;
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `What are the answers for Krillion #${dive.number}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Krillion #${dive.number} features 7 prompts in the theme '${dive.theme}'. Discover our progressive deep dive hints.`,
+        },
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://krillionhints.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Archive', item: 'https://krillionhints.com/archive/' },
+      { '@type': 'ListItem', position: 3, name: `Krillion #${dive.number}`, item: `https://krillionhints.com/prompts/${dive.slug}/` },
+    ],
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas} noindex={isTooOld}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono-code text-krill-muted">
+      <a href="/" class="hover:text-trench-cyan">Home</a>
+      <span>/</span>
+      <a href="/archive/" class="hover:text-trench-cyan">Archive</a>
+      <span>/</span>
+      <span class="text-white">Krillion #{dive.number}</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="text-center space-y-3">
+      <div class="inline-flex items-center gap-2">
+        <span class="px-3 py-1 bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30 text-xs font-black rounded-full font-mono-code uppercase tracking-wider">
+          Archive · Daily Dive #{dive.number} ({dive.displayDate})
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        Krillion #{dive.number} Hints & Answers
+      </h1>
+      <p class="text-sm text-krill-muted">
+        Theme: <strong>{dive.theme}</strong> · 7 Prompts with 7,000m Deep Sinkers
+      </p>
+    </div>
+
+    <GEOQuickAnswer dive={dive} />
+
+    <!-- Prompts List -->
+    <div class="space-y-4">
+      {dive.prompts.map((p) => (
+        <PromptCard promptItem={p} />
+      ))}
+    </div>
+
+    <FAQSection dive={dive} />
+  </div>
+</Layout>

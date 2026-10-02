@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'Krillion Rare Answers Vault: High-Scoring Categories & Sinker Guide';
+const pageDescription = 'The ultimate vault of high-scoring rare answers for Krillion. Categorized lists of obscure geography, biology, literature, and science picks that sink to 7,000m.';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Krillion Rare Answers Guide: High-Scoring Category Vault',
+    description: 'A categorized repository of rare and high-scoring trivia answers for Krillion daily dive players.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://krillionhints.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Rare Words Vault', item: 'https://krillionhints.com/rare-answers-guide/' },
+    ],
+  },
+];
+
+const CATEGORIES = [
+  {
+    name: 'Geography & Microstates',
+    icon: '🌍',
+    desc: 'Island nations and obscure territories that almost no one types.',
+    picks: [
+      { word: 'Nauru', info: 'Micronesian island country, smallest republic in the world.' },
+      { word: 'São Tomé and Príncipe', info: 'Gulf of Guinea island nation.' },
+      { word: 'Tuvalu', info: 'Polynesian microstate.' },
+      { word: 'Liechtenstein', info: 'Double-landlocked Alpine principality.' },
+      { word: 'Comoros', info: 'Volcanic archipelago off Africa’s east coast.' }
+    ]
+  },
+  {
+    name: 'Science & Chemistry',
+    icon: '🧪',
+    desc: 'Synthetic, actinide, or rare-earth elements that sink you straight to 7000m.',
+    picks: [
+      { word: 'Oganesson (Og)', info: 'Atomic number 118, synthetic noble gas group.' },
+      { word: 'Ytterbium (Yb)', info: 'Rare earth element named after Ytterby, Sweden.' },
+      { word: 'Lutetium (Lu)', info: 'Dense metallic element.' },
+      { word: 'Promethium (Pm)', info: 'Rare radioactive lanthanide.' }
+    ]
+  },
+  {
+    name: 'Deep Sea & Zoology',
+    icon: '🐙',
+    desc: 'Bizarre abyssal organisms and monotremes.',
+    picks: [
+      { word: 'Barreleye (Macropinna microstoma)', info: 'Transparent head dome fish.' },
+      { word: 'Hoff Crab', info: 'Hydrothermal vent crustacean.' },
+      { word: 'Scaly-foot Snail', info: 'Hydrothermal snail with iron-infused shell scales.' },
+      { word: 'Xenophyophore', info: 'Gigantic single-celled benthic deep-sea organism.' }
+    ]
+  }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <div class="text-center space-y-3">
+      <div class="inline-flex items-center gap-2">
+        <span class="px-3 py-1 bg-trench-neon/15 text-trench-neon border border-trench-neon/30 text-xs font-black rounded-full font-mono-code uppercase tracking-wider">
+          Cheat Sheet & Vault
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        Krillion <span class="text-trench-neon">Rare Answers</span> Vault
+      </h1>
+      <p class="text-sm sm:text-base text-krill-muted max-w-xl mx-auto">
+        Bookmark these categoric obscure facts to instantly deploy when facing tricky 25-second prompts.
+      </p>
+    </div>
+
+    <!-- Category Grids -->
+    <div class="space-y-6">
+      {CATEGORIES.map((cat) => (
+        <section class="p-6 bg-ocean-card border border-ocean-border rounded-2xl space-y-4">
+          <div class="flex items-center gap-3 border-b border-ocean-border pb-3">
+            <span class="text-2xl">{cat.icon}</span>
+            <div>
+              <h2 class="text-lg font-bold text-white">{cat.name}</h2>
+              <p class="text-xs text-krill-muted">{cat.desc}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {cat.picks.map((pick) => (
+              <div class="p-3 bg-ocean-dark border border-ocean-border rounded-xl space-y-1">
+                <span class="font-bold text-trench-neon font-mono-code text-sm">
+                  {pick.word}
+                </span>
+                <p class="text-[11px] text-krill-muted leading-relaxed">
+                  {pick.info}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'About Us: Krillion Hints';
+const pageDescription = 'Learn about KrillionHints.com, our mission to help daily trivia players sink deeper and master obscurity.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 space-y-8">
+    <h1 class="text-3xl font-black text-white">About <span class="text-trench-cyan">Krillion Hints</span></h1>
+    <div class="bg-ocean-card border border-ocean-border rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-krill-text leading-relaxed">
+      <h2 class="text-xl font-bold text-white">Our Mission</h2>
+      <p class="text-krill-muted">
+        <strong>KrillionHints.com</strong> is a dedicated companion fan resource built for enthusiasts of the daily dive game at <em>krillion.io</em>. We research and curate rare, verified trivia answers to help players elevate their depth scores.
+      </p>
+      <h2 class="text-xl font-bold text-white">Disclaimer</h2>
+      <p class="text-xs text-krill-muted">
+        KrillionHints.com is an independent educational website not affiliated with or endorsed by Krillion. Play the official game at <a href="https://krillion.io" target="_blank" rel="noopener" class="text-trench-cyan underline font-bold">krillion.io</a>.
+      </p>
+    </div>
+  </div>
+</Layout>

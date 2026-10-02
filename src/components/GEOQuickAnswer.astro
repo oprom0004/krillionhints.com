@@ -1,0 +1,46 @@
+---
+import type { DailyKrillionDive } from '../lib/krillion';
+
+interface Props {
+  dive: DailyKrillionDive;
+}
+
+const { dive } = Astro.props;
+---
+
+<section class="bg-ocean-card border-2 border-trench-cyan/30 rounded-2xl p-5 sm:p-6 text-krill-text shadow-cyan-glow" aria-label="AI Daily Dive Summary">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+    <div class="flex items-center gap-2">
+      <span class="px-2.5 py-0.5 bg-trench-cyan text-ocean-darkest text-xs font-black rounded font-mono-code uppercase tracking-wide">
+        AI Quick Dive Key
+      </span>
+      <h2 class="text-sm sm:text-base font-black text-white">
+        Today's Krillion #{dive.number} Hints ({dive.displayDate})
+      </h2>
+    </div>
+    <span class="text-xs font-pixel text-trench-gold">
+      7,000M MAX DEPTH
+    </span>
+  </div>
+
+  <p class="text-xs sm:text-sm text-krill-muted mb-4 leading-relaxed">
+    Looking to achieve a <strong>Perfect 7,000-Meter Dive</strong> on today's Krillion #{dive.number}? Here is the rapid-fire cheat sheet for all 7 daily prompts with optimal rare sinker answers:
+  </p>
+
+  <!-- 7 Prompts Compact List -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs">
+    {dive.prompts.map((p) => (
+      <div class="p-2.5 bg-ocean-dark/80 border border-ocean-border rounded-xl flex items-start gap-2">
+        <span class="w-5 h-5 rounded-full bg-trench-cyan/15 text-trench-cyan flex items-center justify-center font-bold text-[10px] shrink-0 font-mono-code">
+          {p.id}
+        </span>
+        <div class="space-y-0.5">
+          <p class="font-bold text-white line-clamp-1">{p.prompt}</p>
+          <p class="text-trench-neon font-mono-code font-bold">
+            Best Pick: {p.deepAnswers[0]?.answer} <span class="text-krill-muted font-normal">({p.deepAnswers[0]?.depth}m)</span>
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

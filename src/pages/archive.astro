@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAllDives } from '../lib/krillion';
+
+const allDives = getAllDives();
+
+const pageTitle = 'Krillion Daily Dive Archive: All Past Prompts & Rare Answers';
+const pageDescription = 'Browse the complete archive of past Krillion daily dives, 7-prompt challenges, and 7,000m sinker answers.';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://krillionhints.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Archive', item: 'https://krillionhints.com/archive/' },
+    ],
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <div class="text-center space-y-3">
+      <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        Krillion <span class="text-trench-cyan">Archive</span>
+      </h1>
+      <p class="text-base text-krill-muted">
+        Explore past daily prompts and examine high-depth rare answers.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {allDives.map((d) => (
+        <a
+          href={`/prompts/${d.slug}/`}
+          class="p-5 bg-ocean-card hover:bg-ocean-hover border border-ocean-border hover:border-trench-cyan/50 rounded-2xl transition-all group block"
+        >
+          <div class="flex items-center justify-between text-xs text-krill-muted mb-2 font-mono-code">
+            <span>Daily Dive #{d.number}</span>
+            <span>{d.displayDate}</span>
+          </div>
+          <h3 class="font-bold text-white text-lg group-hover:text-trench-cyan transition-colors">
+            Theme: {d.theme}
+          </h3>
+          <p class="text-xs text-krill-muted mt-1">
+            7 Prompts · Max Depth 7,000m
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

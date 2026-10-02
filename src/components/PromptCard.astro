@@ -1,0 +1,91 @@
+---
+import type { PromptHint } from '../lib/krillion';
+
+interface Props {
+  promptItem: PromptHint;
+}
+
+const { promptItem } = Astro.props;
+---
+
+<div class="p-5 sm:p-6 bg-ocean-card border border-ocean-border rounded-2xl space-y-4 hover:border-trench-cyan/40 transition-all duration-200">
+  <!-- Prompt Header -->
+  <div class="flex items-start justify-between gap-3">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-full bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30 flex items-center justify-center text-xs font-black font-mono-code">
+          #{promptItem.id}
+        </span>
+        <span class="text-[11px] font-bold px-2 py-0.5 bg-ocean-dark border border-ocean-border text-krill-muted rounded-md uppercase tracking-wider">
+          {promptItem.category}
+        </span>
+      </div>
+      <h3 class="text-base sm:text-lg font-bold text-white leading-snug">
+        {promptItem.prompt}
+      </h3>
+    </div>
+    <span class="text-xs font-pixel text-trench-gold whitespace-nowrap pt-1">
+      TARGET: 7,000M
+    </span>
+  </div>
+
+  <!-- Common Floaters Warning -->
+  <div class="p-3 bg-red-950/20 border border-red-900/40 rounded-xl space-y-1.5 text-xs">
+    <span class="font-bold text-red-400 flex items-center gap-1.5">
+      <span>🫧</span> Floaters to Avoid (Too Common · Low Score):
+    </span>
+    <p class="text-krill-muted font-mono-code">
+      {promptItem.commonAnswers.join(', ')}
+    </p>
+  </div>
+
+  <!-- Too Clever Trap -->
+  {promptItem.tooCleverTraps.length > 0 && (
+    <div class="p-3 bg-amber-950/20 border border-amber-900/40 rounded-xl space-y-1.5 text-xs">
+      <span class="font-bold text-amber-400 flex items-center gap-1.5">
+        <span>⚠️</span> "Too Clever" Traps (Everyone thinks of these):
+      </span>
+      <p class="text-krill-muted font-mono-code">
+        {promptItem.tooCleverTraps.join(', ')}
+      </p>
+    </div>
+  )}
+
+  <!-- Deep Trench 7000M Answers (Progressive Reveal) -->
+  <details class="group border border-trench-cyan/30 rounded-xl bg-ocean-dark overflow-hidden">
+    <summary class="flex items-center justify-between p-3.5 cursor-pointer font-bold text-xs sm:text-sm select-none bg-trench-cyan/5 hover:bg-trench-cyan/10 transition-colors text-trench-cyan">
+      <span class="flex items-center gap-2">
+        <span>🌊</span>
+        <span>Reveal 7,000m Rare Answers ({promptItem.deepAnswers.length} Options)</span>
+      </span>
+      <span class="text-xs font-mono-code group-open:hidden">Show ▾</span>
+      <span class="text-xs font-mono-code hidden group-open:inline">Hide ▴</span>
+    </summary>
+    <div class="p-4 space-y-2.5 border-t border-trench-cyan/20 bg-ocean-darkest/60">
+      {promptItem.deepAnswers.map((item) => (
+        <div class="p-3 bg-ocean-card/90 border border-ocean-border rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-black text-sm text-trench-neon font-mono-code tracking-wide">
+                {item.answer}
+              </span>
+              <span class="px-1.5 py-0.5 bg-trench-neon/10 border border-trench-neon/30 text-trench-neon rounded text-[10px] font-bold font-pixel">
+                {item.depth}M SINKER
+              </span>
+            </div>
+            <p class="text-krill-muted text-[11px] mt-0.5 leading-relaxed">
+              {item.description}
+            </p>
+          </div>
+          <button
+            type="button"
+            class="copy-prompt-btn px-2.5 py-1 bg-ocean-dark hover:bg-ocean-border text-krill-text border border-ocean-border rounded text-[11px] font-mono-code whitespace-nowrap self-start sm:self-auto transition-colors"
+            data-answer={item.answer}
+          >
+            Copy
+          </button>
+        </div>
+      ))}
+    </div>
+  </details>
+</div>

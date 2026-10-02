@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'How to Play Krillion: Official Rules, Depth Scoring & Limits';
+const pageDescription = 'Learn how to play Krillion with our beginner guide: 25-second prompt rules, depth points formula, avoiding 0-point errors, and achieving 7,000m depth.';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How to Play Krillion: Complete Rules and Scoring Guide',
+    description: 'A comprehensive walkthrough on Krillion rules, depth scoring, and 7-prompt daily dive mechanics.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://krillionhints.com/' },
+      { '@type': 'ListItem', position: 2, name: 'How to Play', item: 'https://krillionhints.com/how-to-play-krillion/' },
+    ],
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <div class="text-center space-y-3">
+      <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        How to Play <span class="text-trench-cyan">Krillion</span>
+      </h1>
+      <p class="text-sm sm:text-base text-krill-muted">
+        Master the 25-second daily dive and understand depth scoring mechanics.
+      </p>
+    </div>
+
+    <article class="bg-ocean-card border border-ocean-border rounded-2xl p-6 sm:p-10 space-y-8 text-sm sm:text-base leading-relaxed text-krill-text">
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white border-b border-ocean-border pb-2">
+          📜 The Core Rules
+        </h2>
+        <ul class="space-y-2.5 list-disc list-inside text-krill-muted">
+          <li><strong>7 Daily Prompts:</strong> Everyone gets the exact same 7 category prompts every 24 hours.</li>
+          <li><strong>25-Second Clock:</strong> You have a strict 25-second countdown to type and submit your answer for each prompt.</li>
+          <li><strong>One Shot Only:</strong> There are no retries or undo buttons for the official Daily Dive.</li>
+          <li><strong>Spelling Counts:</strong> Typographical errors or invalid non-existent entries score 0 meters immediately.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white border-b border-ocean-border pb-2">
+          🎯 Depth Scoring Breakdown
+        </h2>
+        <div class="space-y-3">
+          <div class="p-3.5 bg-ocean-dark border border-ocean-border rounded-xl">
+            <h3 class="font-bold text-white text-sm">0m - 1,500m (Surface Floaters)</h3>
+            <p class="text-xs text-krill-muted mt-0.5">Top 20% most common player answers.</p>
+          </div>
+          <div class="p-3.5 bg-ocean-dark border border-ocean-border rounded-xl">
+            <h3 class="font-bold text-trench-gold text-sm">2,000m - 5,000m (Mid-Oceanic Twilight)</h3>
+            <p class="text-xs text-krill-muted mt-0.5">Moderately uncommon or specific answers.</p>
+          </div>
+          <div class="p-3.5 bg-ocean-dark border border-trench-neon/40 rounded-xl">
+            <h3 class="font-bold text-trench-neon text-sm">6,000m - 7,000m (Abyssal Trench Peak)</h3>
+            <p class="text-xs text-krill-muted mt-0.5">Hyper-rare, valid answers picked by fewer than 1% of participants.</p>
+          </div>
+        </div>
+      </section>
+    </article>
+  </div>
+</Layout>

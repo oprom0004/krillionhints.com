@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'Krillion vs Wordle: Reverse Trivia vs Word Deduction Compared';
+const pageDescription = 'Comparing Krillion and Wordle: mechanics, replayability, scoring systems, and time limits. Discover why trivia lovers are switching to the daily dive.';
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Krillion vs Wordle: Which Daily Puzzle Should You Play?',
+    description: 'A detailed breakdown comparing the daily dive game Krillion with the classic 5-letter deduction game Wordle.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://krillionhints.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Krillion vs Wordle', item: 'https://krillionhints.com/krillion-vs-wordle/' },
+    ],
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} schema={schemas}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+    <div class="text-center space-y-3">
+      <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        <span class="text-trench-cyan">Krillion</span> vs Wordle
+      </h1>
+      <p class="text-base text-krill-muted max-w-xl mx-auto">
+        Two daily sensations with completely different brain workouts. Which one suits your style?
+      </p>
+    </div>
+
+    <!-- Comparison Table -->
+    <section class="bg-ocean-card border border-ocean-border rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-ocean-border text-white bg-ocean-dark">
+              <th class="p-3 font-black">Feature</th>
+              <th class="p-3 font-black text-trench-cyan">🦐 Krillion</th>
+              <th class="p-3 font-black text-green-400">🟩 Wordle</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-ocean-border/60 text-krill-text">
+            <tr>
+              <td class="p-3 font-bold text-krill-muted">Genre</td>
+              <td class="p-3 font-bold text-trench-cyan">Reverse Trivia / Rarity</td>
+              <td class="p-3">Deduction / Vocabulary</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-krill-muted">Daily Format</td>
+              <td class="p-3">7 Category Prompts</td>
+              <td class="p-3">1 Hidden 5-letter Word</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-krill-muted">Time Pressure</td>
+              <td class="p-3 font-bold text-trench-coral">Strict 25s per prompt</td>
+              <td class="p-3">Untimed</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold text-krill-muted">Winning Condition</td>
+              <td class="p-3">Reach 7,000 meters depth</td>
+              <td class="p-3">Solve within 6 guesses</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

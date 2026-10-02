@@ -1,0 +1,66 @@
+---
+import type { DailyKrillionDive } from '../lib/krillion';
+
+interface Props {
+  dive: DailyKrillionDive;
+}
+
+const { dive } = Astro.props;
+---
+
+<section class="bg-ocean-card border border-ocean-border rounded-2xl p-6 sm:p-8 space-y-6">
+  <div>
+    <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2 mb-1">
+      <span>❓</span> Krillion Frequently Asked Questions
+    </h2>
+    <p class="text-xs sm:text-sm text-krill-muted">
+      Everything you need to know about Krillion prompts, depth scoring, and hints.
+    </p>
+  </div>
+
+  <div class="space-y-3 text-sm">
+    <details class="group border border-ocean-border rounded-xl bg-ocean-dark overflow-hidden" open>
+      <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-white select-none hover:bg-ocean-hover transition-colors">
+        <span>What is Krillion and how do hints work?</span>
+        <span class="text-trench-cyan group-open:hidden">+</span>
+        <span class="text-krill-muted hidden group-open:inline">−</span>
+      </summary>
+      <div class="p-4 border-t border-ocean-border bg-ocean-darkest/60 text-krill-muted leading-relaxed text-xs sm:text-sm">
+        Krillion is a daily trivia game hosted at <code>krillion.io</code> where players answer 7 prompts in 25 seconds each. Unlike normal trivia, rare and obscure answers score the highest depth points (up to 7,000 meters), while obvious answers barely count. KrillionHints.com provides spoiler-free progressive clues and top rare sinkers.
+      </div>
+    </details>
+
+    <details class="group border border-ocean-border rounded-xl bg-ocean-dark overflow-hidden">
+      <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-white select-none hover:bg-ocean-hover transition-colors">
+        <span>What is a "Too Clever" answer in Krillion?</span>
+        <span class="text-trench-cyan group-open:hidden">+</span>
+        <span class="text-krill-muted hidden group-open:inline">−</span>
+      </summary>
+      <div class="p-4 border-t border-ocean-border bg-ocean-darkest/60 text-krill-muted leading-relaxed text-xs sm:text-sm">
+        A "Too Clever" pick is an answer that feels niche to the average person, but is actually the go-to smart pick that thousands of other players also submitted. Because depth depends on crowd rarity, widespread "smart" picks suffer severe point penalties.
+      </div>
+    </details>
+
+    <details class="group border border-ocean-border rounded-xl bg-ocean-dark overflow-hidden">
+      <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-white select-none hover:bg-ocean-hover transition-colors">
+        <span>When does the new daily Krillion dive reset?</span>
+        <span class="text-trench-cyan group-open:hidden">+</span>
+        <span class="text-krill-muted hidden group-open:inline">−</span>
+      </summary>
+      <div class="p-4 border-t border-ocean-border bg-ocean-darkest/60 text-krill-muted leading-relaxed text-xs sm:text-sm">
+        A new set of 7 Krillion prompts is released globally every day at <strong>00:00 UTC</strong>. Our hints update promptly with the new drop.
+      </div>
+    </details>
+
+    <details class="group border border-ocean-border rounded-xl bg-ocean-dark overflow-hidden">
+      <summary class="flex items-center justify-between p-4 cursor-pointer font-bold text-white select-none hover:bg-ocean-hover transition-colors">
+        <span>Is this website affiliated with krillion.io?</span>
+        <span class="text-trench-cyan group-open:hidden">+</span>
+        <span class="text-krill-muted hidden group-open:inline">−</span>
+      </summary>
+      <div class="p-4 border-t border-ocean-border bg-ocean-darkest/60 text-krill-muted leading-relaxed text-xs sm:text-sm">
+        No, KrillionHints.com is an independent educational fan companion guide. You can play the official game at <a href="https://krillion.io" target="_blank" rel="noopener noreferrer" class="text-trench-cyan underline font-bold">krillion.io</a>.
+      </div>
+    </details>
+  </div>
+</section>

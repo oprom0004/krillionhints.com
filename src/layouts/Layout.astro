@@ -1,0 +1,259 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  schema?: Record<string, any>[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.href,
+  image = 'https://krillionhints.com/og.png',
+  type = 'website',
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-ocean-darkest text-krill-text">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#03070E" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <meta name="robots" content="index, follow" />
+    )}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="Krillion Hints" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Schema.org JSON-LD -->
+    {schema.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;800&family=VT323&display=swap" rel="stylesheet" />
+
+    <style is:global>
+      :root {
+        --cyan: #00F0FF;
+        --neon: #00FF9D;
+        --dark-bg: #03070E;
+      }
+      body {
+        background-color: #03070E;
+        color: #F0F6FC;
+        font-family: 'Inter', sans-serif;
+      }
+      .font-pixel {
+        font-family: 'VT323', monospace;
+      }
+      .font-mono-code {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col antialiased selection:bg-trench-cyan/30 selection:text-trench-cyan">
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-ocean-darkest/90 backdrop-blur-md border-b border-ocean-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2.5 group">
+          <span class="text-2xl filter drop-shadow-[0_0_8px_rgba(0,240,255,0.6)]">🦐</span>
+          <div class="flex flex-col">
+            <span class="font-black text-lg tracking-wider uppercase text-white group-hover:text-trench-cyan transition-colors flex items-center gap-1">
+              Krillion <span class="text-trench-cyan font-pixel text-xl font-normal">HINTS</span>
+            </span>
+            <span class="text-[10px] text-krill-muted -mt-1 tracking-widest uppercase font-mono-code">7000M DEEP DIVE</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-1.5 text-xs sm:text-sm font-semibold">
+          <a
+            href="/"
+            class={`px-3 py-1.5 rounded-lg transition-all ${
+              currentPath === '/' ? 'bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30' : 'text-krill-muted hover:text-white hover:bg-ocean-card'
+            }`}
+          >
+            Today's Dive
+          </a>
+          <a
+            href="/how-to-dive-7000m/"
+            class={`px-3 py-1.5 rounded-lg transition-all ${
+              currentPath === '/how-to-dive-7000m/' ? 'bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30' : 'text-krill-muted hover:text-white hover:bg-ocean-card'
+            }`}
+          >
+            7000m Strategy 🔥
+          </a>
+          <a
+            href="/rare-answers-guide/"
+            class={`px-3 py-1.5 rounded-lg transition-all ${
+              currentPath === '/rare-answers-guide/' ? 'bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30' : 'text-krill-muted hover:text-white hover:bg-ocean-card'
+            }`}
+          >
+            Rare Words Guide
+          </a>
+          <a
+            href="/archive/"
+            class={`px-3 py-1.5 rounded-lg transition-all ${
+              currentPath.startsWith('/archive') || currentPath.startsWith('/prompts')
+                ? 'bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30'
+                : 'text-krill-muted hover:text-white hover:bg-ocean-card'
+            }`}
+          >
+            Archive
+          </a>
+
+          <!-- Guides Dropdown -->
+          <div class="relative group">
+            <button
+              type="button"
+              class={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-all ${
+                ['/what-is-krillion/', '/how-to-play-krillion/', '/krillion-vs-wordle/'].includes(currentPath)
+                  ? 'bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30'
+                  : 'text-krill-muted hover:text-white hover:bg-ocean-card'
+              }`}
+            >
+              <span>Guides</span>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="absolute right-0 top-full mt-1 hidden group-hover:block w-52 bg-ocean-card border border-ocean-border rounded-xl shadow-cyan-glow p-1.5 z-50">
+              <a href="/what-is-krillion/" class="block px-3 py-2 text-xs font-bold rounded-lg hover:bg-ocean-hover text-krill-text">
+                🌊 What is Krillion?
+              </a>
+              <a href="/how-to-play-krillion/" class="block px-3 py-2 text-xs font-bold rounded-lg hover:bg-ocean-hover text-krill-text">
+                📜 How to Play & Scoring
+              </a>
+              <a href="/krillion-vs-wordle/" class="block px-3 py-2 text-xs font-bold rounded-lg hover:bg-ocean-hover text-krill-text">
+                ⚔️ Krillion vs Wordle
+              </a>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          class="md:hidden p-2 text-krill-muted hover:text-white focus:outline-none"
+          aria-label="Toggle Navigation"
+        >
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-ocean-border bg-ocean-dark px-4 pt-2 pb-4 space-y-1 text-sm font-semibold">
+        <a href="/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Today's Dive Hints</a>
+        <a href="/how-to-dive-7000m/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">7000m Strategy Guide</a>
+        <a href="/rare-answers-guide/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Rare Words Vault</a>
+        <a href="/archive/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Past Dives (Archive)</a>
+        <a href="/what-is-krillion/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">What is Krillion?</a>
+        <a href="/how-to-play-krillion/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Scoring Rules</a>
+        <a href="/krillion-vs-wordle/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Krillion vs Wordle</a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-ocean-border bg-ocean-dark py-12 text-sm text-krill-muted">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-ocean-border/60">
+          <div class="md:col-span-1 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🦐</span>
+              <span class="font-extrabold text-white text-base">Krillion Hints</span>
+            </div>
+            <p class="text-xs text-krill-muted leading-relaxed">
+              The daily companion guide and strategy tool for Krillion daily dive players. Sink to 7,000 meters.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Daily Dives</h4>
+            <ul class="space-y-2 text-xs">
+              <li><a href="/" class="hover:text-trench-cyan transition-colors">Today's Dive Hints</a></li>
+              <li><a href="/archive/" class="hover:text-trench-cyan transition-colors">Daily Archive</a></li>
+              <li><a href="/rare-answers-guide/" class="hover:text-trench-cyan transition-colors">Rare Words Vault</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Strategy & Guides</h4>
+            <ul class="space-y-2 text-xs">
+              <li><a href="/how-to-dive-7000m/" class="hover:text-trench-cyan transition-colors">How to Dive 7000m</a></li>
+              <li><a href="/what-is-krillion/" class="hover:text-trench-cyan transition-colors">What is Krillion?</a></li>
+              <li><a href="/how-to-play-krillion/" class="hover:text-trench-cyan transition-colors">Rules & Scoring Explained</a></li>
+              <li><a href="/krillion-vs-wordle/" class="hover:text-trench-cyan transition-colors">Krillion vs Wordle</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Legal & About</h4>
+            <ul class="space-y-2 text-xs">
+              <li><a href="/about/" class="hover:text-trench-cyan transition-colors">About Us</a></li>
+              <li><a href="/privacy/" class="hover:text-trench-cyan transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms/" class="hover:text-trench-cyan transition-colors">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+          <p>© {new Date().getFullYear()} krillionhints.com. All rights reserved.</p>
+          <p>Unofficial companion fan site. Not affiliated with the official game at <a href="https://krillion.io" target="_blank" rel="noopener noreferrer" class="text-trench-cyan underline">krillion.io</a>.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+        });
+      }
+    </script>
+  </body>
+</html>
