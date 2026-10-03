@@ -142,7 +142,7 @@ const currentPath = Astro.url.pathname;
             <button
               type="button"
               class={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-all ${
-                ['/what-is-krillion/', '/how-to-play-krillion/', '/krillion-vs-wordle/'].includes(currentPath)
+                ['/what-is-krillion/', '/how-to-play-krillion/', '/krillion-vs-wordle/', '/one-in-a-krillion/'].includes(currentPath)
                   ? 'bg-trench-cyan/15 text-trench-cyan border border-trench-cyan/30'
                   : 'text-krill-muted hover:text-white hover:bg-ocean-card'
               }`}
@@ -152,7 +152,11 @@ const currentPath = Astro.url.pathname;
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div class="absolute right-0 top-full mt-1 hidden group-hover:block w-52 bg-ocean-card border border-ocean-border rounded-xl shadow-cyan-glow p-1.5 z-50">
+            <div class="absolute right-0 top-full mt-1 hidden group-hover:block w-56 bg-ocean-card border border-ocean-border rounded-xl shadow-cyan-glow p-1.5 z-50">
+              <a href="/one-in-a-krillion/" class="block px-3 py-2 text-xs font-bold rounded-lg hover:bg-ocean-hover text-trench-cyan flex items-center justify-between">
+                <span>🦐 One in a Krillion</span>
+                <span class="text-[10px] bg-trench-cyan/20 px-1.5 py-0.5 rounded font-mono-code">TREND</span>
+              </a>
               <a href="/what-is-krillion/" class="block px-3 py-2 text-xs font-bold rounded-lg hover:bg-ocean-hover text-krill-text">
                 🌊 What is Krillion?
               </a>
@@ -182,6 +186,7 @@ const currentPath = Astro.url.pathname;
       <!-- Mobile Menu Dropdown -->
       <div id="mobile-menu" class="hidden md:hidden border-t border-ocean-border bg-ocean-dark px-4 pt-2 pb-4 space-y-1 text-sm font-semibold">
         <a href="/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Today's Dive Hints</a>
+        <a href="/one-in-a-krillion/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-trench-cyan font-bold">🦐 One in a Krillion Meme</a>
         <a href="/how-to-dive-7000m/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">7000m Strategy Guide</a>
         <a href="/rare-answers-guide/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Rare Words Vault</a>
         <a href="/archive/" class="block px-3 py-2 rounded-lg hover:bg-ocean-card text-krill-text">Past Dives (Archive)</a>
@@ -222,6 +227,7 @@ const currentPath = Astro.url.pathname;
           <div>
             <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Strategy & Guides</h4>
             <ul class="space-y-2 text-xs">
+              <li><a href="/one-in-a-krillion/" class="hover:text-trench-cyan text-trench-cyan/90 transition-colors">🦐 One in a Krillion (Meme)</a></li>
               <li><a href="/how-to-dive-7000m/" class="hover:text-trench-cyan transition-colors">How to Dive 7000m</a></li>
               <li><a href="/what-is-krillion/" class="hover:text-trench-cyan transition-colors">What is Krillion?</a></li>
               <li><a href="/how-to-play-krillion/" class="hover:text-trench-cyan transition-colors">Rules & Scoring Explained</a></li>
